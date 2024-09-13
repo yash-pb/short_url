@@ -3,7 +3,7 @@ var router = express.Router();
 const URL = require('../Models/url');
 
 const generateRandomeIds = () => {
-  let random = Math.random().toString(36).slice(5)
+  let random = Math.random().toString(36).slice(3)
   return random;
 }
 
@@ -15,8 +15,10 @@ router.get('/', (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const {url} = req.body;
-    if(!url) {
-      res.render('index', {
+    console.log('url => ', url);
+    
+    if(!url && url === '' && url === null && url === undefined) {
+      return res.render('index', {
         'status': false,
         'error': "URL is required!"
       });
