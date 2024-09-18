@@ -48,14 +48,10 @@
         </div>
     </div>
   </body>
-  <script>
-    // let status = document.getElementById('shortner_url_form').reset();
-    console.log(' => ', document.getElementById("ogurl").value);
-    
+  <script>    
     const clickToCopy = () => {
       document.getElementById("ogurl").value = '';
       const textToCopy = document.getElementById("shorten_url").href;
-      console.log('textToCopy => ', textToCopy);
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(linkToCopy)
           .then(() => {

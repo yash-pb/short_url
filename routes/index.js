@@ -9,15 +9,18 @@ const generateRandomeIds = () => {
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.render('index');
+  const shortLink = req.query.shortLink ?? '';
+
+  res.render('index', {
+    'shortLink': shortLink,
+  });
 });
 
 router.post('/', async (req, res, next) => {
   try {
     const {url} = req.body;
-    console.log('url => ', url);
     
-    if(!url && url === '' && url === null && url === undefined) {
+    if(!url) {
       return res.render('index', {
         'status': false,
         'error': "URL is required!"
@@ -34,13 +37,12 @@ router.post('/', async (req, res, next) => {
         visitHistory: []
     })
     
-    res.render('index', {
-      'shortLink': result.shortLink,
-      'status': true
-    });
-  } catch (error) {
-    console.log('error => ', error);
-    
+    // res.render('index', {
+    //   'shortLink': result.shortLink,
+    //   'status': true
+    // });
+    res.redirect('/?shortLink=' + encodeURIComponent(result.shortLink));
+  } catch (error) {    
       res.render('index', {
         'status': false,
         'error': "Something went wrong"
